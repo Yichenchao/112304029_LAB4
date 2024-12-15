@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drum Kit</title>
+    <style>
+        body {
+          text-align: center;
+          background-color: #283149;
+        }
+
+        h1 {
+          font-size: 5rem;
+          color: #DBEDF3;
+          font-family: "Arvo", cursive;
+          text-shadow: 3px 0 #DA0463;
+
+        }
+
+        .w {
+          background-image: url("images/crash.png");
+        }
+
+        .a {
+          background-image: url("images/kick.png");
+        }
+
+        .s {
+          background-image: url("images/snare.png");
+        }
+
+        .d {
+          background-image: url("images/tom1.png");
+        }
+
+        .j {
+          background-image: url("images/tom2.png");
+        }
+
+        .k {
+          background-image: url("images/tom3.png");
+        }
+
+        .l {
+          background-image: url("images/tom4.png");
+        }
+
+        .set {
+          margin: 10% auto;
+        }
+
+        .pressed {
+          box-shadow: 0 3px 4px 0 #DBEDF3;
+          opacity: 0.5;
+        }
+
+        .red {
+          color: red;
+        }
+
+        .drum {
+          outline: none;
+          border: 10px solid #404B69;
+          font-size: 3rem;
+          font-family: 'Arvo', cursive;
+          line-height: 2;
+          font-weight: 900;
+          color: #DA0463;
+          text-shadow: 3px 0 #DBEDF3;
+          border-radius: 15px;
+          display: inline-block;
+          width: 150px;
+          height: 150px;
+          text-align: center;
+          margin: 10px;
+          background-color: white;
+        }
+
+         #drum-kit {
+          display: flex;
+          justify-content: center;
+          flex-wrap: wrap;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="text-content">
+        <h1>Drum Kick</h1>
+    </div>
+
+    <!-- Drum Kit Section -->
+    <section id="drum-kit">
+        <button class="drum w" id="key-w"><span>W</span></button>
+        <button class="drum a" id="key-a"><span>A</span></button>
+        <button class="drum s" id="key-s"><span>S</span></button>
+        <button class="drum d" id="key-d"><span>D</span></button>
+        <button class="drum j" id="key-j"><span>J</span></button>
+        <button class="drum k" id="key-k"><span>K</span></button>
+        <button class="drum l" id="key-l"><span>L</span></button>
+    </section>
+
+
+    <script>
+        const drumButtons = document.querySelectorAll('.drum');
+        drumButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                playSound(button.id);
+                animateButton(button);
+            });
+        });
+
+        document.addEventListener('keydown', event => {
+            const key = `key-${event.key.toLowerCase()}`;
+            const button = document.getElementById(key);
+            if (button) {
+                playSound(key);
+                animateButton(button);
+            }
+        });
+
+       function playSound(key) {
+        const soundMap = {
+        'key-w': 'crash.mp3',
+        'key-a': 'kick-bass.mp3',
+        'key-s': 'snare.mp3',
+        'key-d': 'tom-1.mp3',
+        'key-j': 'tom-2.mp3',
+        'key-k': 'tom-3.mp3',
+        'key-l': 'tom-4.mp3',
+        };
+
+        const audioFile = soundMap[key];
+        if (audioFile) {
+        const audio = new Audio(`sounds/${audioFile}`);
+        audio.play();
+            } else {
+        console.log('No sound for this key');
+        }
+        }
+
+        function animateButton(button) {
+            button.classList.add('pressed');
+            setTimeout(() => button.classList.remove('pressed'), 100);
+        }
+
+    </script>
+
+</body>
+</html>
+
